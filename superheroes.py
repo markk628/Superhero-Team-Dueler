@@ -21,9 +21,19 @@ class Hero:
         self.current_health = current_health
         self.armor = list()
         self.abilities = list()
-    def add_ablitly(self, ability):
+    def add_ability(self, ability):
         self.abilities.append(ability)
-    def attack()
+    def attack(self):
+        damage = 0
+        for ability in self.abilities:
+            damage += ability.attack()
+        return damage
+    def add_armor(self, armor):
+        armor + self.armor
+        
+
+
+
 
 if __name__ == "__main__":
 #     ability = Ability("debugging activity", 20)
@@ -32,7 +42,10 @@ if __name__ == "__main__":
     # print(my_hero.name)
     # print(my_hero.current_health)
     ability = Ability("Great Debugging", 50)
+    another_ability = Ability("Smarty Pants", 90)
     hero = Hero("Grass Hopper", 200)
-    hero.add_ablitly(ability)
-    print(hero.abilities)
+    hero.add_ability(ability)
+    hero.add_ability(another_ability)
+    # print(hero.abilities)
+    print(hero.attack())
     

@@ -15,14 +15,16 @@ class Armor:
         return random.randint(0, self.max_block)
 
 class Weapon(Ability):
-    def weapon(self, weapon_max_damage):
-        return random.randint(weapon_max_damage//2, weapon_max_damage)
+    def attack(self):
+        return random.randint(self.max_damage // 2, self.max_damage)
 
 class Hero:
-    def __init__(self, name, current_health, starting_health = 100):
+    def __init__(self, name, starting_health = 100):
         self.name = name
         self.starting_health = starting_health
-        self.current_health = current_health
+        self.current_health = starting_health
+        self.deaths = 0
+        self.kills = 0
         self.armor = list()
         self.abilities = list()
         self.weapons = list()
@@ -38,7 +40,7 @@ class Hero:
     def attack_weapon(self):
         weapon_damage = 0
         for weapon in self.weapons:
-            weapon_damage += weapon.weapon()
+            weapon_damage += weapon.attack()
         return weapon_damage
     def add_armor(self, armor):
         self.armor.append(armor)
@@ -64,13 +66,25 @@ class Hero:
             print(f"{opponent.name} won")
         else:
             print(f"{self.name} won")
+    # def add_kill(self, num_kills):
+    #     self.kills.append(num_kills)
 
-
-
-
-
-
-
+class Team:
+    def __init__(self, name):
+        self.name = name
+        self.heroes = list()
+    def remove_hero(self, name):
+        for hero in self.heroes:
+            if name == hero.name:
+                self.heroes.remove(hero)
+                return self.heroes
+        return 0
+    def view_all_heroes(self):
+        for heroes in self.heroes:
+            print(heroes.name)
+    def add_hero(self, hero):
+        self.heroes.append(hero)
+    
 if __name__ == "__main__":
 #     ability = Ability("debugging activity", 20)
 #     print(ability.name)
@@ -95,16 +109,16 @@ if __name__ == "__main__":
     # print(hero.is_alive())
     hero1 = Hero("Wonder Woman", 300)
     hero2 = Hero("Dumbledore", 300)
-    ability1 = Ability("Super Speed", 10)
-    ability2 = Ability("Super Eyes", 10)
-    ability3 = Ability("Wizard Wand", 10)
-    ability4 = Ability("Wizard Beard", 10)
+    ability1 = Ability("Super Speed", 1)
+    ability2 = Ability("Super Eyes", 1)
+    ability3 = Ability("Wizard Wand", 1)
+    ability4 = Ability("Wizard Beard", 1)
     weapon1 = Weapon("nuke", 100000000000000000000000000000000000000000000000000000000)
-    weapon2 = Weapon("knife", 1)
+    weapon2 = Weapon("knife", 0)
     hero1.add_ability(ability1)
     hero1.add_ability(ability2)
     hero2.add_ability(ability3)
     hero2.add_ability(ability4)
     hero1.add_weapon(weapon2)
     hero2.add_weapon(weapon1)
-    hero1.fight(hero2)
+    # hero1.fight(hero2)

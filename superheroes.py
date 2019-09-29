@@ -97,7 +97,7 @@ class Team:
         # TODO: Randomly select a living hero from each team and have
         # them fight until one or both teams have no surviving heroes.
         # Hint: Use the fight method in the Hero class.
-        for hero.is_alive in self.heroes or other_team.heroes:
+        for hero.is_alive in self.heroes or opponent.is_alive in other_team.heroes:
             hero = random.choice(self.heroes)
             opponent = random.choice(other_team.heroes)
             hero.fight(opponent)
@@ -115,7 +115,25 @@ class Team:
         # member of the team to the screen.
         # This data must be output to the console.
         # Hint: Use the information stored in each hero.
-        pass
+        for hero in self.heroes:
+            print(hero.name, hero.kills, hero.deaths, hero.abilities, hero.armors)
+
+class Arena:
+    def __init__(self):
+        self.team_One: input("Choose a team name: ")
+        self.team_Two: input("Choose team 2 name: ")
+        print(self.team_One)
+        print(self.team_Two)
+    def create_ability(self):
+        c_ability: input("Ability name: ")
+        ability_d: input(int("Ability damage (as an integer): "))
+        print(c_ability, ability_d)
+    def create_weapon(self):
+        c_weapon: input("Weapon name: ")
+        weapon_d: input(int("Weapon damage (as an integer): "))
+        print(c_weapon, weapon_d)
+    
+
     
 if __name__ == "__main__":
 #     ability = Ability("debugging activity", 20)

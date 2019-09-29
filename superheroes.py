@@ -1,4 +1,5 @@
 import random
+import sys
 
 class Ability:
     def __init__(self, name, max_damage):
@@ -132,7 +133,37 @@ class Arena:
         c_weapon: input("Weapon name: ")
         weapon_d: input(int("Weapon damage (as an integer): "))
         print(c_weapon, weapon_d)
-    
+    def create_armor(self):
+        c_armor: input("Armor name: ")
+        armor_r: input(int("Armor rating (as an integer): "))
+        print(c_armor, armor_r)
+    def create_hero(self):
+        create_h: input("Would you like to create a hero (Y/N): ")
+        while create_h.upper() == "Y":
+            # break
+            c_hero: input("Hero name: ")
+            new_hero = Hero(c_hero)
+        else:
+            exit()
+            print("ok")
+        a_ability: input("Would you like to add an ability (Y/N)?: ")
+        while a_ability.upper() == "Y":
+            new_hero.add_ability(self.create_ability())
+            a_ability: input("Another one (Y/N)?: ")
+        a_armor: input("Would you like to add armor (Y/N)?: ")
+        while a_armor.upper() == "N":
+            new_hero.add_armor(self.create_armor())
+            a_armor: input("Another one (Y/N)?: ")
+        a_weapon: input("Would you like to add a weapon (Y/N)?: ")
+        while a_weapon.upper() == "Y":
+            new_hero.add_weapon(self.create_weapon())
+            a_weapon: input("Another one (Y/N)?: ")
+        return new_hero
+        
+
+
+
+
 
     
 if __name__ == "__main__":

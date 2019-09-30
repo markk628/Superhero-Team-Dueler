@@ -57,13 +57,18 @@ class Hero:
             return True
         else:
             return False
+    def is_dead(self):
+        if self.current_health < 0:
+            return True
+        else:
+            return False
     def fight(self, opponent):
-        while self.current_health and opponent.current_health > 0:
+        while self.is_alive() and opponent.is_alive() is True:
             self.take_damage(opponent.attack())
             opponent.take_damage(self.attack())
-        if len(self.abilities) == 0 and len(opponent.abilities):
-            print("Draw")
-        elif self.is_alive() == False:
+        # if len(self.abilities) == 0 and len(opponent.abilities):
+        #     print("Draw")
+        if self.is_alive() == False:
             self.add_deaths(1)
             opponent.add_kill(1)
             print(f"{opponent.name} won")
@@ -103,7 +108,6 @@ class Team:
         for hero in self.heroes:
             if hero.is_alive is True:
                 currently_alive.append(hero)
-                return
             return currently_alive
     def revive_heroes(self, health=100):
         for hero in self.heroes:
@@ -114,68 +118,78 @@ class Team:
 
 class Arena:
     def __init__(self):
-        self.team_One: Team("team one")
-        self.team_Two: Team("team two")
+        self.team_One = Team("team one")
+        self.team_Two = Team("team two")
         # print(self.team_One)
         # print(self.team_Two)
     def create_ability(self):
         c_ability = input("Ability name: ")
         ability_d = int(input("Ability damage (as an integer): "))
-        print(c_ability, ability_d)
+        return (c_ability, ability_d)
     def create_weapon(self):
         c_weapon = input("Weapon name: ")
         weapon_d = int(input("Weapon damage (as an integer): "))
-        print(c_weapon, weapon_d)
+        return (c_weapon, weapon_d)
     def create_armor(self):
         c_armor = input("Armor name: ")
         armor_r = int(input("Armor rating (as an integer): "))
-        print(c_armor, armor_r)
+        return (c_armor, armor_r)
     def create_hero(self):
-        # create_h = input("Would you like to create a hero (Y/N): ")
-        # while create_h.upper() == "Y":
-        #     break
-        # else:
-        #     print("ok")
-        #     exit()
         c_hero = input("Hero name: ")
-        new_hero = Hero(c_hero)
+        self.new_hero = Hero(c_hero)
         a_ability = input("Would you like to add an ability (Y/N)?: ")
         while a_ability.upper() == "Y":
-            new_hero.add_ability(self.create_ability())
+            self.new_hero.add_ability(self.create_ability())
             a_ability = input("Another one (Y/N)?: ")
         a_armor = input("Would you like to add armor (Y/N)?: ")
         while a_armor.upper() == "Y":
-            new_hero.add_armor(self.create_armor())
+            self.new_hero.add_armor(self.create_armor())
             a_armor = input("Another one (Y/N)?: ")
         a_weapon = input("Would you like to add a weapon (Y/N)?: ")
         while a_weapon.upper() == "Y":
-            new_hero.add_weapon(self.create_weapon())
+            self.new_hero.add_weapon(self.create_weapon())
             a_weapon = input("Another one (Y/N)?: ")
-        return new_hero
+        return self.new_hero
     def build_team_one(self):
-        team_o_name = input("Enter Team One's name: ")
-        self.team_o = Team(team_o_name)
-        self.team_o_heroes = int(input(f"Amount of heroes on {team_o_name}: "))
-        for i in range(self.team_o_heroes):
+        self.team_o_name = input("Enter Team One's name: ")
+        self.team_o = Team(self.team_o_name)
+        team_o_heroes = int(input(f"Amount of heroes on {self.team_o_name}: "))
+        for i in range(team_o_heroes):
             hero = self.create_hero()
             self.team_o.add_hero(hero)
     def build_team_two(self):
-        team_t_name = input("Enter Team Two's name: ")
-        self.team_t = Team(team_t_name)
-        self.team_t_heroes = int(input(f"Amount of heroes on {team_t_name}: "))
-        for i in range(self.team_t_heroes):
+        self.team_t_name = input("Enter Team Two's name: ")
+        self.team_t = Team(self.team_t_name)
+        team_t_heroes = int(input(f"Amount of heroes on {self.team_t_name}: "))
+        for i in range(team_t_heroes):
             hero = self.create_hero()
             self.team_o.add_hero(hero)
     def team_battle(self):
         self.team_o.attack(self.team_t)
     def show_stats(self):
-        print("stats (K/D): ")
-        self.team_o_results = self.team_o.stats()
-        self.team_t_results = self.team_t.stats()
-        print(self.team_o_results)
-        print(self.team_o_heroes)
-        print(self.team_t_results)
-        print(self.team_t_heroes)
+        print("stats (K/D)")
+        self.team_o.stats()
+        self.team_t.stats()
+        # team_o_heroes = list()
+        # team_t_heroes = list()
+        #     team_o_heroes.append(selfnew_hero)
+        #     return team_o_heroes
+        # else:
+        #     team_t_heroes.append(self.new_hero)
+        #     return team_t_heroes
+        # if self.new_hero.is_alive is True:
+        #     if self.new_hero in self.team_o:
+        #         team_o_heroes.append(self.new_hero)
+        # if(len(self.team_o.heroes) > len(self.team_t.heroes)):
+        #     print(self.team_o_name + " wins")
+        # else:
+        #     print(self.team_t_name + " wins")
+        if len(self.team_o.currently_alive()) > 0:
+            print(self.team_o_name + " wins")
+        else:
+            print(self.team_t_name + " wins")
+        print(self.team_o.currently_alive())
+        print(self.team_t.currently_alive())
 
 if __name__ == "__main__":
     arena = Arena()

@@ -88,12 +88,11 @@ class Hero:
             if self.is_alive() is False:
                 self.add_deaths(1)
                 opponent.add_kill(1)
-                return print(f"{opponent.name} won")
+                # return print(f"{opponent.name} won")
             elif opponent.is_alive() is False:
                 self.add_kill(1)
                 opponent.add_deaths(1)
-                return print(f"{self.name} won")
-                
+                # return print(f"{self.name} won")
 
 class Team:
     def __init__(self, name, starting_health=100):
@@ -198,7 +197,32 @@ class Arena:
             self.team_Two.add_hero(hero)
     def team_battle(self):
         self.team_One.attack(self.team_Two)
+    # def who_dead(self, Living):
+    #     deaths = 0
+    #     for hero in Living:
+    #         if hero.currently_alive is False:
+    #             deaths += 1
+    #     if deaths == len(Living):
+    #         return True
+    #     else:
+    #         return False
     def show_stats(self):
+        # team_One = self.who_dead(self.team_One.heroes)
+        # team_Two = self.who_dead(self.team_Two.heroes)
+        # if team_One == False:
+        #     print("Survivors")
+        #     for hero in self.team_One.heroes:
+        #         if hero.is_alive():
+        #             print(hero.name)
+        # elif team_Two == False:
+        #     print("Survivors")
+        #     for hero in self.team_Two.heroes:
+        #         if hero.is_alive():
+        #             print(hero.name)
+        #         else:
+        #             print("They all dead lol")
+        # else:
+        #     print("Tie")
         print("stats (K/D)")
         self.team_One.stats()
         self.team_Two.stats()
@@ -206,10 +230,7 @@ class Arena:
             print(self.team_o_name + " wins")
         else:
             print(self.team_t_name + " wins")
-        print(self.team_One.currently_alive())
-        print(self.team_Two.currently_alive())
         
-
 if __name__ == "__main__":
     arena = Arena()
     arena.build_team_one()

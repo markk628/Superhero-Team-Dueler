@@ -64,7 +64,7 @@ class Hero:
         self.deaths += num_deaths
         # return self.deaths
     def fight(self, opponent):
-        while self.is_alive() and opponent.is_alive() :
+        while self.is_alive() and opponent.is_alive():
             self.take_damage(opponent.attack())
             opponent.take_damage(self.attack())
             if self.is_alive() is False:
@@ -94,8 +94,9 @@ class Team:
     def attack(self, other_team):
         random_hero = random.choice(self.heroes)
         other_random_hero = random.choice(other_team.heroes)
-        while random_hero.is_alive() and other_random_hero.is_alive():
-            random_hero.fight(other_random_hero)
+        # while random_hero.is_alive() and other_random_hero.is_alive():
+        #     random_hero.fight(other_random_hero)
+        random_hero.fight(other_random_hero)
     def currently_alive(self):
         currently_alive = list()
         for hero in self.heroes:

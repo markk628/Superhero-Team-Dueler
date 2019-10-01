@@ -197,32 +197,7 @@ class Arena:
             self.team_Two.add_hero(hero)
     def team_battle(self):
         self.team_One.attack(self.team_Two)
-    # def who_dead(self, Living):
-    #     deaths = 0
-    #     for hero in Living:
-    #         if hero.currently_alive is False:
-    #             deaths += 1
-    #     if deaths == len(Living):
-    #         return True
-    #     else:
-    #         return False
     def show_stats(self):
-        # team_One = self.who_dead(self.team_One.heroes)
-        # team_Two = self.who_dead(self.team_Two.heroes)
-        # if team_One == False:
-        #     print("Survivors")
-        #     for hero in self.team_One.heroes:
-        #         if hero.is_alive():
-        #             print(hero.name)
-        # elif team_Two == False:
-        #     print("Survivors")
-        #     for hero in self.team_Two.heroes:
-        #         if hero.is_alive():
-        #             print(hero.name)
-        #         else:
-        #             print("They all dead lol")
-        # else:
-        #     print("Tie")
         print("stats (K/D)")
         self.team_One.stats()
         self.team_Two.stats()
@@ -231,12 +206,36 @@ class Arena:
         else:
             print(self.team_t_name + " wins")
         
+# if __name__ == "__main__":
+#     arena = Arena()
+#     arena.build_team_one()
+#     arena.build_team_two()
+#     arena.team_battle()
+#     arena.show_stats()
 if __name__ == "__main__":
+    game_is_running = True
+
+    # Instantiate Game Arena
     arena = Arena()
+
+    #Build Teams
     arena.build_team_one()
     arena.build_team_two()
-    arena.team_battle()
-    arena.show_stats()
+
+    while game_is_running:
+
+        arena.team_battle()
+        arena.show_stats()
+        play_again = input("Play Again? Y or N: ")
+
+        #Check for Player Input
+        if play_again.lower() == "n":
+            game_is_running = False
+
+        else:
+            #Revive heroes to play again
+            arena.team_One.revive_heroes()
+            arena.team_Two.revive_heroes()
 
 # if __name__ == "__main__":
 #    team1 = Team("Super Dupers")
